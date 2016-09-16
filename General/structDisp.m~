@@ -1,0 +1,18 @@
+function structDisp(s,gap)
+
+if ~exist('gap','var'), gap=0; end;
+
+    for f=fields(s)'
+        fld=f{1};
+        
+        if isstruct(s.(fld))
+            structDisp(s.(fld),gap+2);
+        else
+            fprintf('%s%s: %s',repmat(' ',1,gap),fld,des s.(fld));
+        end
+        
+        
+    end
+
+
+end

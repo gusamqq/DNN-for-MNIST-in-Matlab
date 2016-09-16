@@ -1,0 +1,4 @@
+% Save workspace in temporary file, clear everything, reload.  This is
+% useful when you have an objects whose method declarations have changed.
+
+dsdfgfasjm=cd;

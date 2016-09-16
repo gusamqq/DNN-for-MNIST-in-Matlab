@@ -1,0 +1,23 @@
+function bmark(tag)
+
+d=dbstack;
+
+if length(d)==1
+    disp 'No bookmark to be made.  You''re in the base workspace';
+else
+    
+    if ~exist('tag','var'), tag=''; end
+    
+
+    if ~verLessThan('matlab','7.12')
+        fprintf('<a href="matlab:edit %s;matlab.desktop.editor.findOpenDocument(''%s'').goToLine(0);">%s</a>%s<a href="matlab:help %s/%s">?</a> (get:%s,set:%s) in %s\n',...
+            pe.DefiningClass.Name,pe.DefiningClass.Name,pe.Name,repmat(' ',1,max(namelens)+20-namelens(i)),pe.DefiningClass.Name,pe.Name,pe.GetAccess,pe.SetAccess,pe.DefiningClass.Name);
+    else
+        fprintf('<a href="matlab:edit %s;editorservices.openAndGoToLine(which(''%s''),0);">%s</a>%s<a href="matlab:help %s/%s">?</a> (get:%s,set:%s) in %s\n',...
+            pe.DefiningClass.Name,pe.DefiningClass.Name,pe.Name,repmat(' ',1,max(namelens)+20-namelens(i)),pe.DefiningClass.Name,pe.Name,pe.GetAccess,pe.SetAccess,pe.DefiningClass.Name);
+    end
+    
+    
+end
+
+end

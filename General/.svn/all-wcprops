@@ -1,0 +1,419 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/pandorasbox/!svn/ver/36/General
+END
+STA.m
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/pandorasbox/!svn/ver/3/General/STA.m
+END
+randss.m
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/pandorasbox/!svn/ver/3/General/randss.m
+END
+cellwin.m
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/pandorasbox/!svn/ver/22/General/cellwin.m
+END
+getwords.m
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/pandorasbox/!svn/ver/3/General/getwords.m
+END
+Entropy.m
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/pandorasbox/!svn/ver/23/General/Entropy.m
+END
+PechePourPoisson.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/pandorasbox/!svn/ver/3/General/PechePourPoisson.m
+END
+ProgressPrinter.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/pandorasbox/!svn/ver/30/General/ProgressPrinter.m
+END
+PairComp.m
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/pandorasbox/!svn/ver/3/General/PairComp.m
+END
+viewClassTree.m
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/pandorasbox/!svn/ver/3/General/viewClassTree.m
+END
+InfoClass.m
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/pandorasbox/!svn/ver/3/General/InfoClass.m
+END
+TakeAPicture.m
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/pandorasbox/!svn/ver/29/General/TakeAPicture.m
+END
+RevCorr.m
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/pandorasbox/!svn/ver/3/General/RevCorr.m
+END
+CatMaster.m
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/pandorasbox/!svn/ver/3/General/CatMaster.m
+END
+AbootTime.m
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/pandorasbox/!svn/ver/3/General/AbootTime.m
+END
+quickclip.m
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/pandorasbox/!svn/ver/3/General/quickclip.m
+END
+struct2xml.m
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/pandorasbox/!svn/ver/28/General/struct2xml.m
+END
+invertcols.m
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/pandorasbox/!svn/ver/23/General/invertcols.m
+END
+PoissonTrain.m
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/pandorasbox/!svn/ver/3/General/PoissonTrain.m
+END
+binme.m
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/pandorasbox/!svn/ver/23/General/binme.m
+END
+RovingFanos.m
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/pandorasbox/!svn/ver/22/General/RovingFanos.m
+END
+shiftyHist.m
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/pandorasbox/!svn/ver/3/General/shiftyHist.m
+END
+addline.m
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/pandorasbox/!svn/ver/3/General/addline.m
+END
+JointEntropy.m
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/pandorasbox/!svn/ver/23/General/JointEntropy.m
+END
+playcell.m
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/pandorasbox/!svn/ver/3/General/playcell.m
+END
+justamoment.m
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/pandorasbox/!svn/ver/3/General/justamoment.m
+END
+RevCorrGen.m
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/pandorasbox/!svn/ver/3/General/RevCorrGen.m
+END
+MutualInformation.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/pandorasbox/!svn/ver/23/General/MutualInformation.m
+END
+TheThirdDimension.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/pandorasbox/!svn/ver/3/General/TheThirdDimension.m
+END
+sig.m
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/pandorasbox/!svn/ver/39/General/sig.m
+END
+dload.m
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/pandorasbox/!svn/ver/3/General/dload.m
+END
+fastconv.m
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/pandorasbox/!svn/ver/3/General/fastconv.m
+END
+MotherClass.m
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/pandorasbox/!svn/ver/3/General/MotherClass.m
+END
+figmerge.m
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/pandorasbox/!svn/ver/22/General/figmerge.m
+END
+fload.m
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/pandorasbox/!svn/ver/3/General/fload.m
+END
+serialCC.m
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/pandorasbox/!svn/ver/3/General/serialCC.m
+END
+peakseek.m
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/pandorasbox/!svn/ver/26/General/peakseek.m
+END
+FiltFT.m
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/pandorasbox/!svn/ver/3/General/FiltFT.m
+END
+Example.m
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/pandorasbox/!svn/ver/3/General/Example.m
+END
+MovieTime.m
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/pandorasbox/!svn/ver/23/General/MovieTime.m
+END
+FunPer.m
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/pandorasbox/!svn/ver/3/General/FunPer.m
+END
+Viewer.m
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/pandorasbox/!svn/ver/36/General/Viewer.m
+END
+slidewincorr.m
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/pandorasbox/!svn/ver/3/General/slidewincorr.m
+END
+desktopdir.m
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/pandorasbox/!svn/ver/30/General/desktopdir.m
+END
+SplitSpikes.m
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/pandorasbox/!svn/ver/22/General/SplitSpikes.m
+END
+corrgram.m
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/pandorasbox/!svn/ver/3/General/corrgram.m
+END
+quickfind.m
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/pandorasbox/!svn/ver/3/General/quickfind.m
+END
+dock.m
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/pandorasbox/!svn/ver/23/General/dock.m
+END
+signalscan.m
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/pandorasbox/!svn/ver/3/General/signalscan.m
+END
+ax2ax.m
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/pandorasbox/!svn/ver/3/General/ax2ax.m
+END
+information.m
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/pandorasbox/!svn/ver/23/General/information.m
+END
+squeezecond.m
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/pandorasbox/!svn/ver/22/General/squeezecond.m
+END
+iplot.m
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/pandorasbox/!svn/ver/3/General/iplot.m
+END
+ChineseRestaurant.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/pandorasbox/!svn/ver/3/General/ChineseRestaurant.m
+END
+distprops.m
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/pandorasbox/!svn/ver/3/General/distprops.m
+END
+mplot.m
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/pandorasbox/!svn/ver/32/General/mplot.m
+END
+equibin.m
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/pandorasbox/!svn/ver/23/General/equibin.m
+END
+Crawler.m
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/pandorasbox/!svn/ver/3/General/Crawler.m
+END
+rMutualInformation.m
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/pandorasbox/!svn/ver/23/General/rMutualInformation.m
+END
+comp_struct.m
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/pandorasbox/!svn/ver/23/General/comp_struct.m
+END
+barweb.m
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/pandorasbox/!svn/ver/23/General/barweb.m
+END
+UIlibrary.m
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/pandorasbox/!svn/ver/41/General/UIlibrary.m
+END
+med.m
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/pandorasbox/!svn/ver/30/General/med.m
+END
+TrialParse.m
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/pandorasbox/!svn/ver/3/General/TrialParse.m
+END
+spike2rate.m
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/pandorasbox/!svn/ver/3/General/spike2rate.m
+END
+regularize.m
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/pandorasbox/!svn/ver/3/General/regularize.m
+END
+PoissonTrain2.m
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/pandorasbox/!svn/ver/3/General/PoissonTrain2.m
+END
+FunFig.m
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/pandorasbox/!svn/ver/3/General/FunFig.m
+END
+NiceFigure.m
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/pandorasbox/!svn/ver/3/General/NiceFigure.m
+END
+addlines.m
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/pandorasbox/!svn/ver/3/General/addlines.m
+END

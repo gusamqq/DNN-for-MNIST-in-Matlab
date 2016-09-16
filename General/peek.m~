@@ -1,0 +1,96 @@
+function peek(varargin)
+
+
+try
+    a=evalin('caller',varargin{1});
+catch ME
+    fprintf('Error while trying to evaluate "%s"',arg);
+    rethrow(ME);
+end
+
+
+if ~isnumeric(a)
+    des a
+    return
+end
+
+if length(varargin)>2
+    redims=cellfun(@str2double,varargin(2:end),'uniformoutput',false);
+    a=reshape(a,redims{:});
+end
+
+dims=size(a);
+
+
+figure;
+if prod(dims)==max(dims) % It's a line
+    if numel(a)<10000000
+        plot(squeeze(a));
+    else
+        iplot(squeeze(a));
+    end
+elseif numel(dims>1)==2
+    imagesc(squeeze(a));    
+else
+    mat=squeeze(a);
+    
+    d=find(dims>1);
+    szx=dims(ix);
+    [d1,d2]=meshgrid(d,d);
+    ix=d1<d2;
+    pairs=[d1(ix) d2(ix)];
+    plainChoices=arrayfun(@(i)num2str(p(i,:)),1:size(p,1),'uniformoutput',false);
+    
+    
+    currentPair=1;
+    
+    planeIX=ones(size(d));
+    
+    hF=figure;
+    hB=[];
+    replane;
+    
+    
+    
+end
+
+
+
+
+    function replane
+        
+        ind=d(~ismember(d,pairs(currentPair,:)));
+        subplanes=cellfun(@(ix,d)sprintf('~dim%u@%u',d),d(ind),szx(ind),'uniformoutput',false);
+    
+        delete(hB(ishandle(hB)));
+        [hB val]=UIlibary.buttons([{plainChoices},subplanes]);
+        
+        for i=2:length(hB)
+            set(h,'callback',@(s,e)setPlane(d(ind(i-1)),val(i-1)));
+            
+        end
+        
+        
+    end
+
+    function setPlane(planenumber,ii)
+        planeIX(planenumber)=ii;
+        replot;
+    end
+
+    function replot
+        
+        figure(hF);
+        
+        ix=repmat('%u,',planeIX);
+        
+        
+        
+        
+        ref=regexprep(arrayfun(@(x)sprintf('%u',x),ismember(ix,pairs(currentPair,:))+2),{'2','3'},{'1,',':,'});
+        
+        submat=eval(sprintf('a(%s);',ref(1:end-1)));
+        
+        imagesc(squeeze(submat));
+        
+    end

@@ -1,0 +1,238 @@
+function sig(methoddef,specifier)
+% ========= sig ==============
+% Returns the signature (info on inputs, outputs) of a method or property
+% of an object.  This is helful when doing object-oriented programming, as
+% it seems that Matlab has no default functionality for doing this in OOP.
+% 
+% Examples:
+% 
+% sig handle.fi     % returns info on all methods of handle class starting
+%                   % with fi.
+% 
+% x=sym('x');       % Create a symbolic object (from symbolic math toolbox)
+% sig x.ez          % Get info on all methods starting with "ez"
+% sig x             % Return the (large) list of all properties and methods
+%                   % associated with the "sym" class.
+% 
+% Peter 
+% (oconnorp at ethz dot ch)
+% ---------------------------
+
+assert(ischar(methoddef),'function sig just takes string inputs.  Read the <a href="help sig">help</a>.');
+
+if ~exist('specifier','var'), specifier='mp'; end
+
+div=regexp(methoddef,'\.|/');
+if length(div)>1
+    div=div(end);
+end
+    
+disp --------------------
+
+oldstate = warning('off','MATLAB:class:cannotUpdateClass');
+
+if isempty(div)
+    class=methoddef;
+    token='.';
+    meth=token;
+else
+    class=methoddef(1:div-1);
+    token=methoddef(div+1:end);
+    meth=['^' token];
+end
+
+if exist(class,'file')==2 && ~exist(class,'class') && ~evalin('caller',['exist(''' class ''',''var'')'])
+% if isempty(m) && exist(class,'file')==2 % It's probably a function
+    loc=which(class);
+    fid=fopen(loc);
+    topline=fgetl(fid);
+    fclose(fid);
+    
+    topline=topline(10:end); % Remove the 'function '
+    [st en]=regexp(topline,class);
+    
+    fprintf('%s <a href="matlab:edit %s">%s</a>%s\t\t<a href="matlab:help %s">?</a>\n',topline(1:st-1),topline(st:en),topline(st:en),topline(en+1:end),class);
+    return;
+end
+    
+    
+    
+
+% First: Test if it's an object in the calling ws.
+% Second: Test if it's a class
+try 
+    
+    class=evalin('caller',['class(' class ')']);
+catch ME
+    if any(strcmp(ME.identifier,{'MATLAB:noSuchMethodOrField' 'MATLAB:UndefinedFunction'}))
+        
+        if exist(class,'class')==0
+            fprintf('No variable, class, or function "%s" exists in the current workspace/path.\n', class);
+            return;
+        end
+    end
+end
+
+
+% m=evalin('caller',['metaclass(' class ')']);
+
+m=eval(['?' class]);
+
+
+
+if isempty(m)
+    fprintf('Class <a href="matlab:doc %s">%s</a> doesn''t allow meta-access.',class,class);
+end
+
+superlinks=strcat(cellfun(@(x)sprintf('<a href="matlab:edit %s">%s</a>',x,x),superclasses(class),'uniformoutput',false),', ');
+if isempty(superlinks)
+    fprintf('Class <a href="matlab: edit %
+
+superlinks=strcat(2,superlinks{:});
+fprintf('%s is a subclass 
+
+
+if ismember('p',specifier);
+    try 
+        PropList=m.PropertyList;
+
+        propnames={PropList.Name};
+
+
+
+    catch ME % Handle old version
+
+        PropList=cat(1,m.Properties{:});
+    %     PropList=@(ix)m.Properties{ix}; % Take advantage of matlab's ambiguous syntax
+        propnames=cellfun(@(a)a.Name,m.Properties,'uniformoutput',false);
+
+    end
+
+    [~,ix]=sort(lower(propnames));
+    propnames=propnames(ix);
+    PropList=PropList(ix);
+
+    [~,ix]=ismember(arrayfun(@(i)PropList(i).DefiningClass.Name,1:length(PropList),'uniformoutput',false),superclasses(class));
+    [~,nord]=sort(ix);
+    propnames=propnames(nord);
+    PropList=PropList(nord);
+
+
+    validProps=find(~cellfun(@isempty,regexpi(propnames,meth)));
+    if ~isempty(validProps), 
+        fprintf('Matching Properties for %s.%s:\n',class,token);
+        nameLists=propnames(validProps);
+        namelens=cellfun(@length,nameLists);
+        for i=1:length(validProps)
+            pe=PropList(validProps(i));
+
+            if ~verLessThan('matlab','7.12')
+                fprintf('<a href="matlab:edit %s;matlab.desktop.editor.findOpenDocument(''%s'').goToLine(0);">%s</a>%s<a href="matlab:help %s/%s">?</a> (get:%s,set:%s) in %s\n',...
+                    pe.DefiningClass.Name,pe.DefiningClass.Name,pe.Name,repmat(' ',1,max(namelens)+20-namelens(i)),pe.DefiningClass.Name,pe.Name,pe.GetAccess,pe.SetAccess,pe.DefiningClass.Name);
+            else
+                fprintf('<a href="matlab:edit %s;editorservices.openAndGoToLine(which(''%s''),0);">%s</a>%s<a href="matlab:help %s/%s">?</a> (get:%s,set:%s) in %s\n',...
+                    pe.DefiningClass.Name,pe.DefiningClass.Name,pe.Name,repmat(' ',1,max(namelens)+20-namelens(i)),pe.DefiningClass.Name,pe.Name,pe.GetAccess,pe.SetAccess,pe.DefiningClass.Name);
+            end
+            
+        end
+    end
+end
+
+if ismember('m',specifier)
+    try 
+        MethList=m.MethodList;
+        methnames={MethodList.Name};
+    catch ME % Handle old version
+        warning off MATLAB:structOnObject
+        MethList=cellfun(@(a)struct(a),m.Methods); % Take advantage of matlab's ambiguous syntax
+        methnames=cellfun(@(a)a.Name,m.Methods,'uniformoutput',false);
+        warning on MATLAB:structOnObject
+    end
+
+    [~,ix]=sort(lower(methnames));
+    methnames=methnames(ix);
+    MethList=MethList(ix);
+
+    [~,ix]=ismember(arrayfun(@(m)m.DefiningClass.Name,MethList,'uniformoutput',false),superclasses(class));
+    [~,nord]=sort(ix);
+    methnames=methnames(nord);
+    MethList=MethList(nord);
+
+
+    % MethList=MethList(ix);
+
+
+
+
+    validMeths=~cellfun(@isempty,regexpi(methnames,meth));
+
+    % Special treatment for handle objects to avoid clutter with methods you probably weren't interested in (see end)
+    if ~strcmp(class,'handle')
+        handleMeths=arrayfun(@(m)strcmp(m.DefiningClass.Name,'handle'),MethList);
+        handleOverlap=nnz(validMeths & handleMeths);
+        validMeths=validMeths & ~handleMeths;
+    else
+        handleOverlap=0;
+    end
+
+    validMeths=find(validMeths);
+    if ~isempty(validMeths), 
+
+        inputLists=arrayfun(@(ix)toString(MethList(ix).InputNames),validMeths,'uniformoutput',false);
+        outputLists=arrayfun(@(ix)toString(MethList(ix).OutputNames),validMeths,'uniformoutput',false);
+    %     nameLists={m.MethodList(validMeths).Name};
+        nameLists=methnames(validMeths);
+        outlens=cellfun(@length,outputLists);
+        fulllens=cellfun(@length,nameLists)+cellfun(@length,inputLists);
+        fullmax=max(fulllens);
+
+        maxoutlen=max(outlens);
+
+        fprintf('Matching Methods for %s.%s:\n',class,token);
+        for i=1:length(validMeths)
+            me=MethList(validMeths(i));
+
+            desc=me.Access;
+            if me.Abstract, desc=[desc ', Abstract']; end %#ok<*AGROW>
+            if me.Static, desc=[desc ', Static']; end
+            if me.Sealed, desc=[desc ', Sealed']; end
+            if me.Hidden, desc=[desc ', Hidden']; end
+
+
+            if ~verLessThan('matlab','7.12')
+
+                fprintf('[%s] %s= <a href="matlab:edit %s;matlab.desktop.editor.findOpenDocument(''%s'').goToFunction(''%s'');">%s</a>(%s)%s<a href="matlab:help %s/%s">?</a> (%s) in %s\n',...
+                    outputLists{i},repmat(' ',1,maxoutlen-outlens(i)),me.DefiningClass.Name,me.DefiningClass.Name,me.Name,me.Name,inputLists{i},...
+                    repmat(' ',1,fullmax+4-fulllens(i)),me.DefiningClass.Name,me.Name,desc,me.DefiningClass.Name);
+
+            else
+
+                fprintf('[%s] %s= <a href="matlab:editorservices.openAndGoToFunction(which(''%s''),''%s'');">%s</a>(%s)%s<a href="matlab:help %s/%s">?</a> (%s) in %s\n',...
+                    outputLists{i},repmat(' ',1,maxoutlen-outlens(i)),me.DefiningClass.Name,me.Name,me.Name,inputLists{i},...
+                    repmat(' ',1,fullmax+4-fulllens(i)),me.DefiningClass.Name,me.Name,desc,me.DefiningClass.Name);
+
+
+            end
+
+        end
+    end
+
+    if isempty(validMeths)&&isempty(validProps)
+        fprintf('No matching properties or methods for <a href="matlab:edit %s">%s</a>.%s:\n',class,class,token);
+    end
+
+    if handleOverlap
+        fprintf('%g matching methods also found for superclass handle.  <a href="matlab:sig handle.%s">Show these</a>?\n',handleOverlap,token);
+    end
+end
+
+ warning(oldstate.state,'MATLAB:class:cannotUpdateClass')
+disp --------------------
+
+end
+
+function strList=toString(nameList)
+    strList=strcat(nameList,',');
+    strList=strcat(strList{:});
+    strList=strList(1:end-1);
+end

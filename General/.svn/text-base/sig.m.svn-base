@@ -1,0 +1,159 @@
+function sig(methoddef)
+% ========= sig ==============
+% Returns the signature (info on inputs, outputs) of a method or property
+% of an object.  This is helful when doing object-oriented programming, as
+% it seems that Matlab has no default functionality for doing this in OOP.
+% 
+% Examples:
+% 
+% sig handle.fi     % returns info on all methods of handle class starting
+%                   % with fi.
+% 
+% x=sym('x');       % Create a symbolic object (from symbolic math toolbox)
+% sig x.ez          % Get info on all methods starting with "ez"
+% sig x             % Return the (large) list of all properties and methods
+%                   % associated with the "sym" class.
+% 
+% Peter 
+% (oconnorp at ethz dot ch)
+% ---------------------------
+
+assert(ischar(methoddef),'function sig just takes string inputs.  Read the <a href="help sig">help</a>.');
+
+div=regexp(methoddef,'\.|/');
+% div=div(end);
+
+disp --------------------
+
+oldstate = warning('off','MATLAB:class:cannotUpdateClass');
+
+if isempty(div)
+    class=methoddef;
+    token='.';
+    meth=token;
+else
+    class=methoddef(1:div-1);
+    token=methoddef(div+1:end);
+    meth=['^' token];
+end
+
+% First: Test if it's an object in the calling ws.
+% Second: Test if it's a class
+if (evalin('caller',['exist(''' class ''',''var'')'])>0)
+    class=evalin('caller',['class(' class ')']);
+elseif ~exist(class,'class')
+    error('No object or class named "%s" does not exist.', class);
+end
+
+% m=evalin('caller',['metaclass(' class ')']);
+m=eval(['?' class]);
+
+if isempty(m)
+    fprintf('Class <a href="matlab:doc %s">%s</a> doesn''t allow meta-access.',class,class);
+end
+
+
+
+
+try 
+    PropList=m.PropertyList;
+    propnames={PropList.Name};
+catch ME % Handle old version
+    
+    PropList=@(ix)m.Properties{ix}; % Take advantage of matlab's ambiguous syntax
+    propnames=cellfun(@(a)a.Name,m.Properties,'uniformoutput',false);
+   
+end
+
+validProps=find(~cellfun(@isempty,regexpi(propnames,meth)));
+if ~isempty(validProps), 
+    fprintf('Matching Properties for %s/%s:\n',class,token);
+    nameLists=propnames(validProps);
+    namelens=cellfun(@length,nameLists);
+    for i=1:length(validProps)
+        pe=PropList(validProps(i));
+
+        fprintf('<a href="matlab:edit %s;matlab.desktop.editor.findOpenDocument(''%s'').goToLine(0);">%s</a>%s<a href="matlab:help %s/%s">?</a> (get:%s,set:%s)\n',...
+            pe.DefiningClass.Name,pe.DefiningClass.Name,pe.Name,repmat(' ',1,max(namelens)+20-namelens(i)),pe.DefiningClass.Name,pe.Name,pe.GetAccess,pe.SetAccess);
+
+    end
+end
+
+
+
+try 
+    MethList=m.MethodList;
+    methnames={MethodList.Name};
+catch ME % Handle old version
+    warning off MATLAB:structOnObject
+    MethList=cellfun(@(a)struct(a),m.Methods); % Take advantage of matlab's ambiguous syntax
+    methnames=cellfun(@(a)a.Name,m.Methods,'uniformoutput',false);
+    warning on MATLAB:structOnObject
+end
+
+
+validMeths=~cellfun(@isempty,regexpi(methnames,meth));
+
+% Special treatment for handle objects to avoid clutter with methods you probably weren't interested in (see end)
+if ~strcmp(class,'handle')
+    handleMeths=arrayfun(@(m)strcmp(m.DefiningClass.Name,'handle'),MethList);
+    handleOverlap=nnz(validMeths & handleMeths);
+    validMeths=validMeths & ~handleMeths;
+else
+    handleOverlap=0;
+end
+    
+validMeths=find(validMeths);
+if ~isempty(validMeths), 
+    
+    inputLists=arrayfun(@(ix)toString(MethList(ix).InputNames),validMeths,'uniformoutput',false);
+    outputLists=arrayfun(@(ix)toString(MethList(ix).OutputNames),validMeths,'uniformoutput',false);
+%     nameLists={m.MethodList(validMeths).Name};
+    nameLists=methnames(validMeths);
+    outlens=cellfun(@length,outputLists);
+    fulllens=cellfun(@length,nameLists)+cellfun(@length,inputLists);
+    fullmax=max(fulllens);
+    
+    maxoutlen=max(outlens);
+    
+    fprintf('Matching Methods for %s/%s:\n',class,token);
+    for i=1:length(validMeths)
+        me=MethList(validMeths(i));
+
+        if ~verLessThan('matlab','7.12')
+        
+            fprintf('[%s] %s= <a href="matlab:edit %s;matlab.desktop.editor.findOpenDocument(''%s'').goToFunction(''%s'');">%s</a>(%s)%s<a href="matlab:help %s/%s">?</a> (%s)\n',...
+                outputLists{i},repmat(' ',1,maxoutlen-outlens(i)),me.DefiningClass.Name,me.DefiningClass.Name,me.Name,me.Name,inputLists{i},...
+                repmat(' ',1,fullmax+4-fulllens(i)),me.DefiningClass.Name,me.Name,me.Access);
+
+        else
+            
+            fprintf('[%s] %s= <a href="matlab:edit %s/%s;">%s</a>(%s)%s<a href="matlab:help %s/%s">?</a> (%s)\n',...
+                outputLists{i},repmat(' ',1,maxoutlen-outlens(i)),me.DefiningClass.Name,me.Name,me.Name,inputLists{i},...
+                repmat(' ',1,fullmax+4-fulllens(i)),me.DefiningClass.Name,me.Name,me.Access);
+
+            
+        end
+        
+    end
+end
+
+if isempty(validMeths)&&isempty(validProps)
+    fprintf('No matching properties or methods for <a href="matlab:edit %s">%s</a>.%s:\n',class,class,token);
+end
+
+if handleOverlap
+    fprintf('%g matching methods also found for superclass handle.  <a href="matlab:sig handle.%s">Show these</a>?\n',handleOverlap,token);
+end
+
+
+ warning(oldstate.state,'MATLAB:class:cannotUpdateClass')
+disp --------------------
+
+end
+
+function strList=toString(nameList)
+    strList=strcat(nameList,',');
+    strList=strcat(strList{:});
+    strList=strList(1:end-1);
+end
